@@ -4,14 +4,14 @@ import TextField, {Input} from '@material/react-text-field';
 import MaterialIcon from '@material/react-material-icon';
 import logo from '../../assets/logo.svg';
 import restaurante from '../../assets/restaurante-fake.png';
-import { Card } from '../../components';
+import { Card, RestaurantCard, Modal } from '../../components';
 import { Container, Carousel, Search, Logo, Wrapper, Map, CarouselTitle } from './styles';
 
 const Home = () => {
     const [inputValue, setInputValue] = useState('');
+    const [modalOpened, setModalOpened] = useState(true);
     
     const settings = {
-        dots: true,
         infinite: true,
         speed: 300,
         slidesToShow: 4,
@@ -46,9 +46,12 @@ const Home = () => {
                     <Card photo={restaurante} title="Nome aqui!"/>
                     <Card photo={restaurante} title="Nome aqui!"/>                   
                 </Carousel>
+                <button onClick={() => setModalOpened(true)}>Abrir modal</button>
             </Search> 
+            <RestaurantCard/>
         </Container>
         <Map/>
+        <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)} />
         </Wrapper>
         
     );
