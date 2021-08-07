@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
-import Slider from "react-slick";
+import Slider from 'react-slick';
 import TextField, {Input} from '@material/react-text-field';
 import MaterialIcon from '@material/react-material-icon';
 import logo from '../../assets/logo.svg';
 import restaurante from '../../assets/restaurante-fake.png';
-import { Card, RestaurantCard, Modal } from '../../components';
-import { Container, Carousel, Search, Logo, Wrapper, Map, CarouselTitle } from './styles';
+import { Card, RestaurantCard, Modal, Map } from '../../components';
+import { Container, Carousel, Search, Logo, Wrapper, CarouselTitle } from './styles';
 
 const Home = () => {
     const [inputValue, setInputValue] = useState('');
+    const [query, setQuery] = useState(null);
     const [modalOpened, setModalOpened] = useState(true);
     
     const settings = {
@@ -18,6 +19,12 @@ const Home = () => {
         slidesToScroll: 4,
         adaptiveHeight: true,
       };
+
+      function handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            setQuery(inputValue);
+        }
+      }
 
     return (
         <Wrapper>
@@ -32,6 +39,7 @@ const Home = () => {
                 >
                     <Input
                         value={inputValue}
+                        onKeyPress={handleKeyPress}
                         onChange={(e) => setInputValue(e.target.value)} 
                     />
                 </TextField>
@@ -50,8 +58,8 @@ const Home = () => {
             </Search> 
             <RestaurantCard/>
         </Container>
-        <Map/>
-        <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)} />
+        <Map query={query} />
+        {/*<Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)} />*/}
         </Wrapper>
         
     );
